@@ -4,7 +4,7 @@
     </button>
     <div>
         <a href="#" class="sidebar-logo">
-            <img src="/assets/images/logo.png" alt="site logo" class="light-logo">
+            <img src="/assets/images/logo.jpeg" alt="site logo" class="light-logo">
             <img src="/assets/images/logo-light.png" alt="site logo" class="dark-logo">
             <img src="/assets/images/laundry_icon.png" alt="site logo" class="logo-icon">
         </a>
@@ -51,7 +51,7 @@
                     <iconify-icon icon="uil:user" class="menu-icon"></iconify-icon>
                     <span>{{ $lang->data['customers'] ?? 'Customers' }}</span>
                 </a>
-            </li>   
+            </li>
             @endcan
             @canany(['service_list','service_type_list','addon_list'])
             <li class="dropdown">

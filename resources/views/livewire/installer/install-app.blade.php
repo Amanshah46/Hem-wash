@@ -5,7 +5,7 @@
                 <div class="tw-flex tw-items-center tw-justify-center">
                     <img src="/assets/images/logo.png" alt="site logo" class="light-logo tw-h-20">
                 </div>
-                <h6 class="mb-4 text-xl">Install LaundryBox</h6>
+                <h6 class="mb-4 text-xl">Laundrymanagementsystem</h6>
                 <p class="text-neutral-500">Fill up your details and proceed next steps.</p>
                 @if ($step != 5)
                 <!-- Form Wizard Start -->
@@ -38,7 +38,7 @@
                             </li>
                         </ul>
                     </div>
-                    
+
                     <template x-if="step == 1">
                         <div class="wizard-fieldset show">
                             <div class="row gy-1 ">
@@ -88,7 +88,7 @@
                                         </div>
                                     @endforeach
                                 @endif
-                            
+
                                 <template x-if="requirementSatisfied !== true">
                                     <p class="text-danger text-center text-xs text-red-500">{{ __('installer.cannot_proceed') }}</p>
                                 </template>
@@ -99,9 +99,9 @@
                                     </div>
                                 </template>
                             </div>
-                        </div>	
+                        </div>
                     </template>
-                    
+
                     <template x-if="step == 2">
                         <div class="wizard-fieldset show ">
                             <div class="row gy-2 ">
@@ -118,7 +118,7 @@
                                             <span class="tw-text-xs tw-text-red-500">{{ $message }}</span>
                                             @enderror
                                 </div>
-                                        
+
                                 <div class="">
                                     <label for="database_host"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">
@@ -145,7 +145,7 @@
                                 </div>
                                 </template>
                             </div>
-                        </div>	
+                        </div>
                     </template>
 
 
@@ -221,7 +221,7 @@
                                             @click.prevent="checkDatabase">{{__('installer.next')}}</button>
                                     </div>
                             </div>
-                        </div>	
+                        </div>
                     </template>
 
 
@@ -231,9 +231,9 @@
                                 <h6 class="text-md text-neutral-500 tw-font-bold">Installing</h6>
                             </div>
                             <div class="progress tw-mt-2 h-8-px w-100 bg-primary-50" role="progressbar" aria-label="Basic example" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated rounded-pill bg-primary-600" style="width: 100%"></div>                    
+                                <div class="progress-bar progress-bar-striped progress-bar-animated rounded-pill bg-primary-600" style="width: 100%"></div>
                             </div>
-                        </div>	
+                        </div>
                     </template>
                 </div>
                 <!-- Form Wizard End -->
@@ -274,19 +274,19 @@
                                 <div class="text-neutral-600">{{__('installer.your_email_is')}} </div>
                                 <div class="text-neutral-600 pt-2">{{__('installer.your_password_is')}} </div>
                             </div>
-                            <a href="{{route('login')}}" @click.prevent="goLogin()" type="button" class="btn btn-primary radius-8 px-20 py-11 d-flex align-items-center gap-2 tw-mt-2 tw-w-fit"> 
-                                Login <iconify-icon icon="mingcute:square-arrow-right-line" class="text-xl"></iconify-icon> 
+                            <a href="{{route('login')}}" @click.prevent="goLogin()" type="button" class="btn btn-primary radius-8 px-20 py-11 d-flex align-items-center gap-2 tw-mt-2 tw-w-fit">
+                                Login <iconify-icon icon="mingcute:square-arrow-right-line" class="text-xl"></iconify-icon>
                             </a>
-                        </div>	
+                        </div>
                     </form>
                 </div>
                 <!-- Form Wizard End -->
-                @endif  
+                @endif
             </div>
         </div>
-    
+
     </div>
- 
+
     <script>
         function alpineInstaller()
         {
