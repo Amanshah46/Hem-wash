@@ -127,3 +127,16 @@ Route::group(['prefix' => 'admin', 'middleware' => [Store::class]], function () 
 });
 /* logout */
 Route::get('/logout', Logout::class)->name('logout');
+
+/* Customer Portal */
+Route::group(['prefix' => 'customer'], function () {
+    Route::get('/login', \App\Livewire\Customer\Auth\Login::class)->name('customer.login')->middleware('guest:customer');
+    Route::get('/logout', \App\Livewire\Customer\Auth\Logout::class)->name('customer.logout');
+
+    Route::group(['middleware' => ['auth:customer']], function () {
+        Route::get('/orders', \App\Livewire\Customer\Orders\OrderList::class)->name('customer.orders');
+        Route::get('/orders/create', \App\Livewire\Customer\Orders\AddOrder::class)->name('customer.order.create');
+        Route::get('/orders/view/{id}', \App\Livewire\Customer\Orders\ViewOrder::class)->name('customer.order.view');
+        Route::get('/orders/print/{id}', \App\Livewire\Customer\Orders\PrintOrder::class)->name('customer.order.print');
+    });
+});
