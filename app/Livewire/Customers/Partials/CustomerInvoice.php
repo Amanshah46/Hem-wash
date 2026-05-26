@@ -129,4 +129,22 @@ class CustomerInvoice extends Component
             );
         }
     }
+
+    public function deleteOrder($orderId)
+    {
+        $order = Order::whereId($orderId)->first();
+        if ($order) {
+            \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+            \App\Models\OrderDetail::where('order_id', $order->id)->delete();
+            \App\Models\OrderAddonDetail::where('order_id', $order->id)->delete();
+            Payment::where('order_id', $order->id)->delete();
+            $order->delete();
+            \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+            $this->reloadOrders();
+        }
+        $this->dispatch(
+            'alert',
+            ['type' => 'success',  'message' => 'Order has been deleted!']
+        );
+    }
 }

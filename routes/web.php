@@ -127,3 +127,25 @@ Route::group(['prefix' => 'admin', 'middleware' => [Store::class]], function () 
 });
 /* logout */
 Route::get('/logout', Logout::class)->name('logout');
+
+/* Customer Panel Routes */
+use App\Livewire\CustomerPanel\Login as CustomerLogin;
+use App\Livewire\CustomerPanel\Register as CustomerRegister;
+use App\Livewire\CustomerPanel\Dashboard as CustomerDashboard;
+use App\Livewire\CustomerPanel\Orders as CustomerOrders;
+use App\Livewire\CustomerPanel\OrderCreate as CustomerOrderCreate;
+use App\Livewire\CustomerPanel\OrderView as CustomerOrderView;
+use App\Livewire\CustomerPanel\Logout as CustomerLogout;
+
+Route::group(['prefix' => 'customer'], function () {
+    Route::get('/login', CustomerLogin::class)->name('customer.login');
+    Route::get('/register', CustomerRegister::class)->name('customer.register');
+    
+    Route::group(['middleware' => ['customer']], function () {
+        Route::get('/dashboard', CustomerDashboard::class)->name('customer.dashboard');
+        Route::get('/orders', CustomerOrders::class)->name('customer.orders');
+        Route::get('/orders/create', CustomerOrderCreate::class)->name('customer.orders.create');
+        Route::get('/orders/{id}', CustomerOrderView::class)->name('customer.orders.view');
+        Route::get('/logout', CustomerLogout::class)->name('customer.logout');
+    });
+});

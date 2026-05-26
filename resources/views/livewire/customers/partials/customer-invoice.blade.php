@@ -86,11 +86,30 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex align-items-center gap-10 justify-content-center">
+                                    @can('order_view')
                                     <a href="{{ route('order.view', $item->id) }}" type="button"
-                                        class="bg-info-100 text-info-600 bg-hover-info-200 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
+                                        class="bg-success-100 text-success-600 bg-hover-success-200 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
                                         <iconify-icon icon="lucide:eye" class="menu-icon"></iconify-icon>
                                     </a>
-
+                                    @endcan
+                                    @can('order_print')
+                                    <a href="{{ route('order.print', $item->id) }}" target="_blank"
+                                        class="bg-warning-100 text-warning-600 bg-hover-warning-200 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
+                                        <iconify-icon icon="material-symbols-light:print-outline" class="menu-icon tw-text-xl"></iconify-icon>
+                                    </a>
+                                    @endcan
+                                    @can('order_edit')
+                                    <a href="{{ route('orders.pos.edit', $item->id) }}"
+                                        class="bg-info-100 text-info-600 bg-hover-info-200 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
+                                        <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
+                                    </a>
+                                    @endcan
+                                    @can('order_delete')
+                                    <button type="button" wire:click.prevent="deleteOrder({{ $item->id }})"
+                                        class="remove-item-button bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
+                                        <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
+                                    </button>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
