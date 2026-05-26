@@ -39,7 +39,7 @@ class AddOrder extends Component
         $this->clothes = \App\Models\Cloth::where('is_active', 1)->latest()->get();
         $this->date = Carbon::today()->toDateString();
         $this->addons = Addon::where('is_active', 1)->latest()->get();
-        $this->delivery_date = Carbon::today()->addDays(2)->toDateString();
+        $this->delivery_date = Carbon::today()->toDateString();
         $this->tax_percent = getTaxPercentage();
         $this->generateOrderID();
 
@@ -186,51 +186,69 @@ class AddOrder extends Component
 
     public function calculateTotal()
     {
-        $this->total = 0;
         $this->sub_total = 0;
-        $this->tax = 0;
-        $this->taxable = 0;
         $this->addon_total = 0;
+
+        $this->total = 0;
+        $this->taxamount = 0;
+        $this->taxable = 0;
+
+        $itemtotal = 0;
+        $itemtaxtotal2 = 0;
+        $sub_total = 0;
 
         $tax_type = getTaxType();
         foreach ($this->selling_price as $key => $value) {
+            $itemtaxtotal = 0;
             if ($tax_type == 2) {
-                $itemtotallocal = ($value * $this->quantity[$key]) * (100 / (100 + $this->tax_percent ?? 0));
-                $this->tax += ($value * $this->quantity[$key]) - $itemtotallocal;
-                $this->sub_total += $itemtotallocal;
-                $this->taxable += $itemtotallocal;
+                $itemtotallocal =  ($this->selling_price[$key] * $this->quantity[$key])  * (100 / (100 + $this->tax_percent ?? 0));
+                $itemtaxtotal +=  ($this->selling_price[$key] * $this->quantity[$key]) - $itemtotallocal ?? 0;
+
+                $itemtotal += ($this->selling_price[$key] * $this->quantity[$key]);
+                $itemtaxtotal2 += $itemtaxtotal;
+                $this->taxable += $itemtotal;
+                $sub_total += $itemtotallocal;
             } else {
-                $itemtotallocal = ($value * $this->quantity[$key]);
-                $this->tax += $itemtotallocal * $this->tax_percent / 100;
-                $this->sub_total += $itemtotallocal;
+                $itemtotallocal =  ($this->selling_price[$key] * $this->quantity[$key]);
+                $itemtaxtotal += $itemtotallocal * $this->tax_percent / 100;
+                $itemtotal += $itemtotallocal + $itemtaxtotal;
+                $itemtaxtotal2 += $itemtaxtotal;
                 $this->taxable += $itemtotallocal;
+                $sub_total += $itemtotallocal;
             }
         }
 
         if ($this->selected_addons) {
             foreach ($this->selected_addons as $key => $value) {
                 if ($value === true) {
-                    $addon = Addon::find($key);
+                    $itemtaxtotal = 0;
+                    $addon = Addon::where('id', $key)->first();
                     if ($addon) {
                         if ($tax_type == 2) {
-                            $itemtotallocal = ($addon->addon_price) * (100 / (100 + $this->tax_percent ?? 0));
-                            $this->tax += ($addon->addon_price) - $itemtotallocal;
+                            $itemtotallocal =  ($addon->addon_price)  * (100 / (100 + $this->tax_percent ?? 0));
+                            $itemtaxtotal +=  ($addon->addon_price) - $itemtotallocal ?? 0;
+                            $itemtotal +=  ($addon->addon_price);
+                            $itemtaxtotal2 += $itemtaxtotal;
+                            $this->taxable += $itemtotal;
+                            $sub_total += $itemtotallocal;
                             $this->addon_total += $itemtotallocal;
-                            $this->sub_total += $itemtotallocal;
-                            $this->taxable += $itemtotallocal;
                         } else {
-                            $itemtotallocal = ($addon->addon_price);
-                            $this->tax += $itemtotallocal * $this->tax_percent / 100;
-                            $this->addon_total += $itemtotallocal;
-                            $this->sub_total += $itemtotallocal;
+                            $itemtotallocal =   ($addon->addon_price);
+                            $itemtaxtotal += $itemtotallocal * $this->tax_percent / 100;
+                            $itemtotal += $itemtotallocal + $itemtaxtotal;
+                            $itemtaxtotal2 += $itemtaxtotal;
                             $this->taxable += $itemtotallocal;
+                            $this->addon_total += $itemtotallocal;
+                            $sub_total += $itemtotallocal;
                         }
                     }
                 }
             }
         }
-        $this->total = $this->sub_total + $this->tax;
-        $this->total = round($this->total, 2);
+        $this->sub_total = $sub_total;
+        $this->tax = $itemtaxtotal2;
+        $this->total = $this->sub_total + $itemtaxtotal2;
+        $this->total = round($this->total, 3, PHP_ROUND_HALF_UP);
     }
 
     public function save()
