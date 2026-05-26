@@ -35,13 +35,24 @@ class CustomerPortalTest extends TestCase
             'is_active' => 1
         ]);
 
-        $response = $this->post(route('customer.login'), [
-            'email' => 'test@example.com',
-            'password' => 'password',
-        ]);
-
-        // Note: Livewire components are usually tested with Livewire::test,
-        // but since we are doing a simple feature test, we check if the guard works.
         $this->assertTrue(auth()->guard('customer')->attempt(['email' => 'test@example.com', 'password' => 'password']));
+    }
+
+    public function test_customer_can_signup()
+    {
+        $response = \Livewire\Livewire::test(\App\Livewire\Customer\Auth\Signup::class)
+            ->set('name', 'New Customer')
+            ->set('email', 'new@example.com')
+            ->set('phone', '0987654321')
+            ->set('password', 'password123')
+            ->set('password_confirmation', 'password123')
+            ->call('signup');
+
+        $response->assertRedirect(route('customer.dashboard'));
+
+        $this->assertDatabaseHas('customers', [
+            'email' => 'new@example.com',
+            'name' => 'New Customer'
+        ]);
     }
 }

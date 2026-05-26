@@ -131,9 +131,11 @@ Route::get('/logout', Logout::class)->name('logout');
 /* Customer Portal */
 Route::group(['prefix' => 'customer'], function () {
     Route::get('/login', \App\Livewire\Customer\Auth\Login::class)->name('customer.login')->middleware('guest:customer');
+    Route::get('/signup', \App\Livewire\Customer\Auth\Signup::class)->name('customer.signup')->middleware('guest:customer');
     Route::get('/logout', \App\Livewire\Customer\Auth\Logout::class)->name('customer.logout');
 
     Route::group(['middleware' => ['auth:customer']], function () {
+        Route::get('/dashboard', \App\Livewire\Customer\Dashboard::class)->name('customer.dashboard');
         Route::get('/orders', \App\Livewire\Customer\Orders\OrderList::class)->name('customer.orders');
         Route::get('/orders/create', \App\Livewire\Customer\Orders\AddOrder::class)->name('customer.order.create');
         Route::get('/orders/view/{id}', \App\Livewire\Customer\Orders\ViewOrder::class)->name('customer.order.view');

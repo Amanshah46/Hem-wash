@@ -42,6 +42,12 @@
                         <span class="visually-hidden">Loading...</span>
                         </div>
                     </button>
+
+                <div class="mt-32 text-center">
+                    <p>Don't have an account? <a href="{{ route('customer.signup') }}" class="text-primary-600 fw-semibold">Sign Up</a></p>
+                    <hr class="my-24">
+                    <p>Are you an Admin? <a href="{{ route('login') }}" class="text-secondary-600 fw-semibold">Login as Admin</a></p>
+                </div>
             </form>
         </div>
     </div>

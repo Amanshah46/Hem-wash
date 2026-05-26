@@ -53,6 +53,10 @@
                         <span class="visually-hidden">Loading...</span>
                         </div>
                     </button>
+
+                <div class="mt-32 text-center">
+                    <p>Are you a Customer? <a href="{{ route('customer.login') }}" class="text-primary-600 fw-semibold">Login as Customer</a></p>
+                </div>
             </form>
         </div>
         <div class="max-w-464-px mx-auto w-100  lg:tw-px-0 tw-px-14" x-show="resetpassword == true" x-transition x-cloak>
