@@ -6,40 +6,18 @@
         <div class="card-body ">
             <div class="row mb-20">
                 <div class="col-sm-6">
-                    <div class="tw-flex tw-items-center tw-gap-4">
-                        <label
-                            class="upload-file h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1"
-                            for="upload-file" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <iconify-icon icon="solar:camera-outline"
-                                class="text-xl text-secondary-light"></iconify-icon>
-                            <span class="fw-semibold text-secondary-light">{{ $lang->data['upload'] ?? 'Upload' }}</span>
-
+                    <div>
+                        <label for="application_name"
+                            class="form-label fw-semibold text-primary-light text-sm mb-8">
+                            {{ $lang->data['service_name'] ?? 'Service Name' }} <span class="text-danger">*</span>
                         </label>
-                        <div class="">
-                            <label for="application_name"
-                                class="form-label fw-semibold text-primary-light text-sm mb-8">
-                                {{ $lang->data['service_name'] ?? 'Service Name' }} <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" required autofocus class="form-control radius-8" id="application_name"
-                                placeholder="{{ $lang->data['enter_service_name'] ?? 'Enter Service Name' }}"
-                                wire:model="service_name">
-                            @error('service_name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-md-3 text-right ">
-                            <div class="avatar avatar-xl">
-                                @if ($imageicon)
-                                <img src="{{ asset('assets/img/service-icons/' . $imageicon['path']) }}"
-                                    class="rounded bg-light p-2">
-                                @endif
-                            </div>
-                        </div>
+                        <input type="text" required autofocus class="form-control radius-8" id="application_name"
+                            placeholder="{{ $lang->data['enter_service_name'] ?? 'Enter Service Name' }}"
+                            wire:model="service_name">
+                        @error('service_name')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    @error('icon')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
                 </div>
                 <div class="col-sm-12 tw-mt-6">
                     <div class="table-responsive">

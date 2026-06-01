@@ -13,8 +13,7 @@
                     </a>
                 </div>
          
-                <h4 class="mb-12">Sign In to your Account</h4>
-                <p class="mb-32 text-secondary-light text-lg">Welcome back! please enter your detail</p>
+                <h4 class="mb-32 text-center">Admin</h4>
             </div>
             <form action="#">
                 <div class="icon-field">

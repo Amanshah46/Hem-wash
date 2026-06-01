@@ -62,11 +62,6 @@ class ServiceManage extends Component
             'prices.*'  => 'numeric|required',
             'service_name'  => 'required',
         ]);
-        /* if image icon is not selected send error alert*/
-        if (!$this->imageicon) {
-            $this->addError('icon', "Please select an icon");
-            return 1;
-        }
         /* if service is not selected */
         if (count($this->inputs) <= 0) {
             $this->addError('inputerror', "You must add atleast one service type");
@@ -74,7 +69,7 @@ class ServiceManage extends Component
         }
         $service = Service::create([
             'service_name'  => $this->service_name,
-            'icon'  => $this->imageicon['path'],
+            'icon'  => $this->imageicon['path'] ?? '',
             'is_active' => $this->is_active
         ]);
         foreach ($this->inputs as $key => $value) {

@@ -136,6 +136,7 @@ use App\Livewire\CustomerPanel\Orders as CustomerOrders;
 use App\Livewire\CustomerPanel\OrderCreate as CustomerOrderCreate;
 use App\Livewire\CustomerPanel\OrderView as CustomerOrderView;
 use App\Livewire\CustomerPanel\Logout as CustomerLogout;
+use App\Livewire\CustomerPanel\Profile as CustomerProfile;
 
 Route::group(['prefix' => 'customer'], function () {
     Route::get('/login', CustomerLogin::class)->name('customer.login');
@@ -146,6 +147,7 @@ Route::group(['prefix' => 'customer'], function () {
         Route::get('/orders', CustomerOrders::class)->name('customer.orders');
         Route::get('/orders/create', CustomerOrderCreate::class)->name('customer.orders.create');
         Route::get('/orders/{id}', CustomerOrderView::class)->name('customer.orders.view');
+        Route::get('/profile', CustomerProfile::class)->name('customer.profile');
         Route::get('/logout', CustomerLogout::class)->name('customer.logout');
     });
 });

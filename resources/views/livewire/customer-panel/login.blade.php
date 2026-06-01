@@ -1,19 +1,13 @@
-<section class="auth bg-base d-flex flex-wrap" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;">  
-    <div class="auth-left d-lg-block d-none" style="flex: 1; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
-        <div class="d-flex align-items-center flex-column h-100 justify-content-center text-white p-5 text-center">
-            <img src="{{ asset('assets/images/laundry_icon.png') }}" class="tw-h-32 tw-w-32 tw-mb-6 tw-animate-bounce" alt="Logo">
-            <h1 class="tw-text-4xl tw-font-bold tw-mb-4">Laundry Box</h1>
-            <p class="tw-text-lg tw-text-white/80 tw-max-w-md">Schedule pickups, track your clothes, and view orders from our premium customer portal.</p>
+<section class="auth bg-base d-flex flex-wrap" style="background: #ffffff !important;">  
+    <div class="auth-left d-lg-block d-none" style="flex: 1;">
+        <div class="d-flex align-items-center flex-column h-100 justify-content-center">
+            <img src="{{ asset('assets/images/login-bg.jpg') }}" class="tw-h-full object-fit-cover tw-w-full" alt="Login Background">
         </div>
     </div>
     <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center tw-relative tw-inset-0 tw-items-center" style="flex: 1;">
         <div class="max-w-464-px mx-auto w-100 tw-flex tw-flex-col tw-justify-center lg:tw-px-0 tw-px-14">
             <div class="text-center tw-mb-8">
-                <a href="#" class="tw-mb-4 d-inline-block">
-                    <img src="{{ asset('assets/images/logo-ct.png') }}" alt="Logo" class="tw-max-h-16 tw-object-contain">
-                </a>
-                <h3 class="tw-font-bold tw-text-gray-800 mt-3">Customer Portal</h3>
-                <p class="text-secondary-light">Please sign in to manage your laundry orders</p>
+                <h3 class="tw-font-bold tw-text-gray-800 mt-3">Customer</h3>
             </div>
             
             <form wire:submit.prevent="login">
@@ -48,7 +42,7 @@
                         <input class="form-check-input border border-neutral-300" type="checkbox" id="remember">
                         <label class="form-check-label text-sm text-secondary-light" for="remember">Remember me</label>
                     </div>
-                    <a href="{{ route('customer.register') }}" class="text-primary-600 fw-semibold text-sm">Create an Account</a>
+                    <a href="{{ route('customer.register') }}" class="text-primary-600 fw-bold text-lg">Create an Account</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32 d-flex align-items-center justify-content-center gap-2">

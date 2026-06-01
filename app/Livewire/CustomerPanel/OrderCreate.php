@@ -26,7 +26,7 @@ class OrderCreate extends Component
     public $service_types = [];
     public $selected_type_id;
     public $item_qty = 1;
-    public $item_color = '#000000';
+    public $item_color = null;
 
     // Cart items
     public $selservices = []; // index => ['service' => id, 'service_type' => id]
@@ -136,7 +136,7 @@ class OrderCreate extends Component
 
         // Reset inputs
         $this->item_qty = 1;
-        $this->item_color = '#000000';
+        $this->item_color = null;
         $this->selected_service_id = null;
         $this->selected_service = null;
         $this->service_types = [];

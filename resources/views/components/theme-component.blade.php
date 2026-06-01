@@ -14,6 +14,7 @@
                 --laundry-btn-hover-color : #FFFFFF;
                 --primary-600 : #0283FF;
                 --bs-primary-rgb : #0283FF;
+                --customer-sidebar-gradient : linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             }
         ";
         if($selected_theme == 'red')
@@ -30,9 +31,8 @@
                     --primary-600 : #DC2626;
                     --bs-primary-rgb : #DC2626;
                     --laundry-btn-hover-color : #FFFFFF;
+                    --customer-sidebar-gradient : linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);
                 }
-
-                
             ";
         }
         if($selected_theme == 'magenta')
@@ -49,9 +49,8 @@
                     --primary-600 : #8252E9;
                     --bs-primary-rgb : #8252E9;
                     --laundry-btn-hover-color : #FFFFFF;
+                    --customer-sidebar-gradient : linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);
                 }
-
-             
             ";
         }
         if($selected_theme == 'orange')
@@ -68,9 +67,8 @@
                     --primary-600 : #FF9F29;
                     --bs-primary-rgb : #FF9F29;
                     --laundry-btn-hover-color : #FFFFFF;
+                    --customer-sidebar-gradient : linear-gradient(135deg, #ea580c 0%, #7c2d12 100%);
                 }
-
-              
             ";
         }
         if($selected_theme == 'green')
@@ -86,9 +84,8 @@
                     --primary-600 : #16A34A;
                     --bs-primary-rgb : 22, 163, 74;
                     --laundry-btn-hover-color : #FFFFFF;
+                    --customer-sidebar-gradient : linear-gradient(135deg, #15803d 0%, #14532d 100%);
                 }
-               
-               
             ";
         }
         if($selected_theme == 'blueDark')
@@ -104,16 +101,21 @@
                     --primary-600 : #2563EB;
                     --bs-primary-rgb : 22, 163, 74;
                     --laundry-btn-hover-color : #FFFFFF;
+                    --customer-sidebar-gradient : linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
                 }
-
-               
             ";
         }
-        @endphp
+    @endphp
     {{$theme}}
+
+    .btn-primary{
+        background-color: var(--laundry-primary)!important;
+        border-color: var(--laundry-primary)!important;
+    }
 
     .btn-primary:hover{
         background-color: var(--laundry-primary-active)!important;
+        border-color: var(--laundry-primary-active)!important;
         color: var(--laundry-btn-hover-color)!important;
     }
 

@@ -15,8 +15,7 @@ class Register extends Component
     public $email;
     public $phone;
     public $password;
-    public $address;
-    public $tax_number;
+
 
     #[Layout('components.layouts.base'), Title('Customer Registration')]
     public function render()
@@ -31,8 +30,6 @@ class Register extends Component
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required|string|unique:customers,phone',
             'password' => 'required|string|min:6',
-            'address' => 'nullable|string',
-            'tax_number' => 'nullable|string',
         ]);
 
         Customer::create([
@@ -40,8 +37,6 @@ class Register extends Component
             'email' => $this->email,
             'phone' => $this->phone,
             'password' => Hash::make($this->password),
-            'address' => $this->address,
-            'tax_number' => $this->tax_number,
             'is_active' => 1,
         ]);
 

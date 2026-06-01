@@ -32,12 +32,7 @@
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td class="">
-                                <div class="tw-flex tw-gap-2 tw-items-center">
-                                    <div class="tw-aspect-square tw-w-10 tw-rounded-lg tw-overflow-clip">
-                                        <img src="{{asset('assets/img/service-icons/'.$item->icon)}}" alt="" class="tw-h-full tw-w-full tw-object-cover">
-                                    </div>
-                                    {{$item->service_name}}
-                                </div>
+                                {{$item->service_name}}
                             </td>
                             <td class="">
                                 <div class="tw-flex tw-flex-col tw-gap-0.5 tw-items-center">

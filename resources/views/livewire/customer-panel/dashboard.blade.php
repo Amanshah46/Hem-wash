@@ -3,13 +3,13 @@
     <div class="row gy-4">
         <!-- Card: Active Orders -->
         <div class="col-xxl-3 col-sm-6">
-            <div class="card p-3 radius-12 customer-card-glass tw-border-l-4 tw-border-blue-500">
+            <div class="card p-3 radius-12 customer-card-glass" style="border-left: 4px solid var(--laundry-primary) !important;">
                 <div class="card-body p-0 d-flex justify-content-between align-items-center">
                     <div>
                         <span class="text-secondary-light fw-medium text-sm">Active Orders</span>
                         <h4 class="mb-0 mt-1 tw-font-bold text-gray-800">{{ $active_orders }}</h4>
                     </div>
-                    <div class="w-50-px h-50-px radius-8 bg-blue-50 d-flex justify-content-center align-items-center text-blue-600">
+                    <div class="w-50-px h-50-px radius-8 d-flex justify-content-center align-items-center" style="background-color: var(--primary-50); color: var(--laundry-primary);">
                         <iconify-icon icon="solar:washing-machine-outline" class="tw-text-2xl"></iconify-icon>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Quick Action / Welcome Banner -->
-    <div class="card radius-16 tw-overflow-hidden tw-mt-6 text-white" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+    <div class="card radius-16 tw-overflow-hidden tw-mt-6 text-white" style="background: var(--customer-sidebar-gradient, linear-gradient(135deg, #1e3c72 0%, #2a5298 100%));">
         <div class="card-body p-24 tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-justify-between tw-gap-4">
             <div>
                 <h4 class="mb-2 text-white tw-font-bold">Need laundry done?</h4>
