@@ -7,12 +7,7 @@
                     <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
                 </form>
             </div>
-            @can('order_create')
-            <a href="{{route('orders.pos')}}" type="button" class="btn btn-primary text-sm btn-sm radius-8 d-flex align-items-center gap-2" >
-                <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-                {{ $lang->data['add_new_order'] ?? 'Add New Order' }}
-            </a>
-            @endcan
+
         </div>
         <div class="tw-p-0">
             <div class="table-responsive scroll-sm">
@@ -121,11 +116,7 @@
                                         <iconify-icon icon="material-symbols-light:print-outline" class="menu-icon tw-text-xl"></iconify-icon>
                                     </a>
                                     @endcan
-                                    @can('order_edit')
-                                    <a href="{{route('orders.pos.edit',$item->id)}}" class="bg-info-100 text-info-600 bg-hover-info-200 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle" >
-                                        <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
-                                    </a>
-                                    @endcan
+
                                     @can('order_delete')
                                     <button type="button" wire:click.prevent="deleteOrder({{$item->id}})" class="remove-item-button bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle"> 
                                         <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>

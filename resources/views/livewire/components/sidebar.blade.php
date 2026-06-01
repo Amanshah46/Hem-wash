@@ -20,14 +20,7 @@
             @canany(['order_create','order_list','order_status_change'])
                 <li class="sidebar-menu-group-title">{{$lang->data['orders'] ?? 'Orders'}}</li>
             @endcan
-            @can('order_create')
-            <li>
-                <a href="{{route('orders.pos')}}">
-                    <iconify-icon icon="mdi-light:monitor" class="menu-icon"></iconify-icon>
-                    <span>{{ $lang->data['pos'] ?? 'POS' }}</span>
-                </a>
-            </li>
-            @endcan
+
             @can('order_list')
             <li>
                 <a href="{{ route('orders') }}">
@@ -81,30 +74,7 @@
                 </ul>
             </li>
             @endcanany
-            @canany(['expense_list','expense_category_list'])
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <iconify-icon icon="iconoir:wallet" class="menu-icon"></iconify-icon>
-                    <span>{{$lang->data['expense'] ?? 'Expense'}}</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    @can('expense_list')
-                        <li>
-                            <a href="{{ route('expense') }}"><i
-                                    class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                                {{ $lang->data['expense_list'] ?? 'Expense List' }}</a>
-                        </li>
-                    @endcan
-                    @can('expense_category_list')
-                        <li>
-                            <a href="{{ route('expense.category') }}"><i
-                                    class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                                {{ $lang->data['expense_category'] ?? 'Expense Category' }}</a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-            @endcan
+
             @can('payment_list')
             <li>
                 <a href="{{ route('payments.receipt') }}">
@@ -113,7 +83,7 @@
                 </a>
             </li>
             @endcan
-            @canany(['report_daily','report_order','report_sales','report_expense','report_ledger','report_tax'])
+            @canany(['report_daily','report_order'])
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="iconoir:reports" class="menu-icon"></iconify-icon>
@@ -130,30 +100,6 @@
                     <li>
                         <a href="{{ route('reports.order') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['order_report'] ?? 'Order Report'}}</a>
-                    </li>
-                    @endcan
-                    @can('report_sales')
-                    <li>
-                        <a href="{{ route('reports.sales') }}"><i
-                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['sales_report'] ?? 'Sales Report'}}</a>
-                    </li>
-                    @endcan
-                    @can('report_ledger')
-                    <li>
-                        <a href="{{ route('reports.ledger') }}"><i
-                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['ledger_report'] ?? 'Ledger Report'}}</a>
-                    </li>
-                    @endcan
-                    @can('report_expense')
-                    <li>
-                        <a href="{{ route('reports.expense') }}"><i
-                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> {{$lang->data['expense_report'] ?? 'Expense Report'}}</a>
-                    </li>
-                    @endcan
-                    @can('report_tax')
-                    <li>
-                        <a href="{{ route('reports.tax') }}"><i
-                                class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['tax_report'] ?? 'Tax Report'}}</a>
                     </li>
                     @endcan
                 </ul>
