@@ -21,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Grant all permissions to admin users (user_type == 1 or null)
+        Gate::before(function ($user, $ability) {
+            if ($user->user_type == 1 || $user->user_type == null) {
+                return true;
+            }
+        });
+
         try {
             Permission::get()->map(function ($permission) {
                 Gate::define($permission->name, function ($user) use ($permission) {

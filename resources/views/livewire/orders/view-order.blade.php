@@ -27,6 +27,14 @@
                         <div class="text-neutral-600">
                             {{ $lang->data['delivery_date'] ?? 'Delivery Date' }} : <span class="tw-font-medium text-primary-light">{{ \Carbon\Carbon::parse($order->delivery_date)->format('d/m/Y') }}</span> 
                         </div>
+                        @php
+                            $orderPayment = \App\Models\Payment::where('order_id', $order->id)->first();
+                        @endphp
+                        @if($orderPayment)
+                        <div class="text-neutral-600">
+                            Payment Type : <span class="badge bg-primary-100 text-primary-600 px-2 py-1 tw-font-semibold" style="color: var(--laundry-primary-active, #1e3c72) !important;">{{ getpaymentMode($orderPayment->payment_type) }}</span> 
+                        </div>
+                        @endif
                         <div class="tw-mt-2 tw-flex tw-items-center tw-gap-2">
                             <div class="">
                                 {{ $lang->data['order_status'] ?? 'Order Status' }} : 

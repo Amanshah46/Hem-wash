@@ -46,7 +46,7 @@
                                     </button>
                                     @endcan
                                     @can('service_type_delete')
-                                    <button wire:click="delete({{$item->id}})" type="button" class="remove-item-button bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
+                                    <button wire:click="delete({{$item->id}})" wire:confirm="Are you sure you want to delete this service type?" type="button" class="remove-item-button bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium tw-size-8 d-flex justify-content-center align-items-center rounded-circle">
                                         <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
                                     </button>
                                     @endcan

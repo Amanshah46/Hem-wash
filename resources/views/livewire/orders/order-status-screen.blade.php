@@ -34,6 +34,16 @@
                                                 {{ $lang->data['customer'] ?? 'Customer' }}:
                                                 <span class="tw-font-bold">{{ $item->customer_name ?? ($lang->data['walk_in_customer'] ?? 'Walk In Customer') }}</span>
                                             </div>
+                                            @php
+                                                $orderPayment = \App\Models\Payment::where('order_id', $item->id)->first();
+                                            @endphp
+                                            @if($orderPayment)
+                                            <div class="text-sm text-secondary-light fw-normal tw-flex tw-items-center tw-gap-2 tw-mt-1">
+                                                <iconify-icon icon="solar:wallet-money-outline" class="text-primary-light"></iconify-icon>
+                                                Payment:
+                                                <span class="tw-font-bold">{{ getpaymentMode($orderPayment->payment_type) }}</span>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="tw-flex tw-gap-2 tw-items-center tw-my-2">
@@ -88,6 +98,16 @@
                                                 {{ $lang->data['customer'] ?? 'Customer' }}:
                                                 <span class="tw-font-bold">{{ $item->customer_name ?? ($lang->data['walk_in_customer'] ?? 'Walk In Customer') }}</span>
                                             </div>
+                                            @php
+                                                $orderPayment = \App\Models\Payment::where('order_id', $item->id)->first();
+                                            @endphp
+                                            @if($orderPayment)
+                                            <div class="text-sm text-secondary-light fw-normal tw-flex tw-items-center tw-gap-2 tw-mt-1">
+                                                <iconify-icon icon="solar:wallet-money-outline" class="text-primary-light"></iconify-icon>
+                                                Payment:
+                                                <span class="tw-font-bold">{{ getpaymentMode($orderPayment->payment_type) }}</span>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="tw-flex tw-gap-2 tw-items-center tw-my-2">
@@ -142,6 +162,16 @@
                                                 {{ $lang->data['customer'] ?? 'Customer' }}:
                                                 <span class="tw-font-bold">{{ $item->customer_name ?? ($lang->data['walk_in_customer'] ?? 'Walk In Customer') }}</span>
                                             </div>
+                                            @php
+                                                $orderPayment = \App\Models\Payment::where('order_id', $item->id)->first();
+                                            @endphp
+                                            @if($orderPayment)
+                                            <div class="text-sm text-secondary-light fw-normal tw-flex tw-items-center tw-gap-2 tw-mt-1">
+                                                <iconify-icon icon="solar:wallet-money-outline" class="text-primary-light"></iconify-icon>
+                                                Payment:
+                                                <span class="tw-font-bold">{{ getpaymentMode($orderPayment->payment_type) }}</span>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="tw-flex tw-gap-2 tw-items-center tw-my-2">

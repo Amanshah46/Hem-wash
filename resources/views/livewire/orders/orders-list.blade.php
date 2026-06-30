@@ -77,6 +77,14 @@
                                     <div class="text-neutral-600">
                                         {{ $lang->data['total_amount'] ?? 'Total Amount' }} : <span class="tw-font-medium text-primary-light">{{ getFormattedCurrency($item->total) }}</span> 
                                     </div>
+                                    @php
+                                        $orderPayment = \App\Models\Payment::where('order_id', $item->id)->first();
+                                    @endphp
+                                    @if($orderPayment)
+                                    <div class="text-neutral-600">
+                                        Payment Method : <span class="tw-font-bold text-primary-light">{{ getpaymentMode($orderPayment->payment_type) }}</span> 
+                                    </div>
+                                    @endif
                                     <div class="text-neutral-600">
                                         @php
                                         $current_paid_amount = \App\Models\Payment::where('order_id',$item->id)->sum('received_amount');

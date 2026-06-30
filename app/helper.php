@@ -51,7 +51,7 @@ function getpaymentMode($type)
             case 4:
                 return $lang->data['cheque'] ?? 'CHEQUE';
             case 5:
-                return $lang->data['bank_transfer'] ?? 'BANK TRANSFER';
+                return $lang->data['bank_transfer'] ?? 'BANK TRANSFER / QR';
             default:
                 return '';
         }
@@ -66,7 +66,7 @@ function getpaymentMode($type)
         case 4:
             return 'CHEQUE';
         case 5:
-            return 'BANK TRANSFER';
+            return 'BANK TRANSFER / QR';
         default:
             return '';
     }

@@ -356,8 +356,56 @@
                             Expected Delivery Date <span style="color:#dc2626;">*</span>
                         </label>
                         <input type="date" class="form-control form-control-sm" wire:model="delivery_date"
+                               min="{{ \Carbon\Carbon::today()->toDateString() }}"
                                style="border-radius:8px; border:1px solid #d1d5db; font-size:13px; padding:8px 12px;">
                     </div>
+
+                    {{-- Payment Type --}}
+                    <div style="margin-bottom:12px;">
+                        <label class="form-label fw-semibold" style="font-size:12px; color:#6b7280;">
+                            Payment Type <span style="color:#dc2626;">*</span>
+                        </label>
+                        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;">
+                            @php
+                                $paymentOptions = [
+                                    1 => ['label' => 'Cash',               'icon' => 'solar:wallet-money-bold'],
+                                    4 => ['label' => 'Cheque',             'icon' => 'solar:document-text-bold'],
+                                    5 => ['label' => 'Bank Transfer / QR', 'icon' => 'solar:bank-bold'],
+                                ];
+                            @endphp
+                            @foreach($paymentOptions as $val => $opt)
+                                <button type="button"
+                                        wire:click="$set('payment_type', {{ $val }})"
+                                        style="
+                                            display:flex; flex-direction:column; align-items:center; justify-content:center;
+                                            gap:4px; padding:8px 4px; border-radius:10px; font-size:11px; font-weight:600;
+                                            cursor:pointer; transition:all 0.18s;
+                                            border: 2px solid {{ $payment_type == $val ? 'var(--laundry-primary, #2a5298)' : '#e5e7eb' }};
+                                            background: {{ $payment_type == $val ? 'var(--customer-sidebar-gradient, linear-gradient(135deg,#1e3c72,#2a5298))' : '#f9fafb' }};
+                                            color: {{ $payment_type == $val ? '#fff' : '#374151' }};
+                                            box-shadow: {{ $payment_type == $val ? '0 3px 10px rgba(30,60,114,0.25)' : 'none' }};
+                                        ">
+                                    <iconify-icon icon="{{ $opt['icon'] }}" style="font-size:18px;"></iconify-icon>
+                                    <span>{{ $opt['label'] }}</span>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- QR Code Display --}}
+                    @if ($payment_type == 5)
+                        <div class="tw-my-4 tw-p-4 tw-rounded-xl tw-border tw-border-success-200 tw-bg-success-50 tw-text-center" style="border: 1px solid #bbf7d0; background-color: #f0fdf4;">
+                            <h6 class="tw-font-bold tw-text-gray-800 tw-text-xs tw-mb-2" style="font-size: 13px; color: #166534; font-weight: 700;">Scan QR Code to Pay</h6>
+                            <div class="tw-bg-white tw-p-2 tw-rounded-lg tw-inline-block tw-shadow-sm tw-mb-3" style="background: #ffffff; padding: 8px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: inline-block;">
+                                <img src="{{ asset('assets/images/payment-qr.jpg') }}" alt="Payment QR Code" style="max-width: 200px; width: 100%; height: auto; border-radius: 4px;">
+                            </div>
+                            <div class="tw-text-left tw-text-xs tw-text-gray-700" style="background: rgba(255, 255, 255, 0.9); padding: 10px; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.05); font-size: 12px; text-align: left;">
+                                <div style="margin-bottom: 4px;"><span style="color: #4b5563; font-weight: 600;">Name:</span> <span style="color: #111827; font-weight: 700;">Aman Kumar Shah</span></div>
+                                <div style="margin-bottom: 4px;"><span style="color: #4b5563; font-weight: 600;">Bank:</span> <span style="color: #1f2937; font-weight: 600;">NIC ASIA (Sarbashrestha Sahaj Bachat Khata)</span></div>
+                                <div><span style="color: #4b5563; font-weight: 600;">Acc No:</span> <span style="color: #111827; font-weight: 700; letter-spacing: 0.05em;">0045751576642001</span></div>
+                            </div>
+                        </div>
+                    @endif
 
                     {{-- Notes --}}
                     <div style="margin-bottom:20px;">

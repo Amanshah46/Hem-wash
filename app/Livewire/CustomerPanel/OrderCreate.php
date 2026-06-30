@@ -11,6 +11,7 @@ use App\Models\Addon;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderAddonDetail;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
@@ -50,6 +51,7 @@ class OrderCreate extends Component
     public $delivery_date;
     public $notes;
     public $order_id;
+    public $payment_type = 1; // 1=Cash, 2=UPI, 3=Card, 4=Cheque, 5=Bank Transfer
 
     #[Layout('components.layouts.customer'), Title('New Order')]
     public function render()
@@ -241,6 +243,16 @@ class OrderCreate extends Component
             return;
         }
 
+        if (!$this->delivery_date) {
+            $this->dispatch('alert', ['type' => 'error', 'message' => 'Please select an expected delivery date.']);
+            return;
+        }
+
+        if (Carbon::parse($this->delivery_date)->lt(Carbon::today())) {
+            $this->dispatch('alert', ['type' => 'error', 'message' => 'Expected delivery date cannot be in the past.']);
+            return;
+        }
+
         $customer = Auth::guard('customer')->user();
         $this->generateOrderID();
 
@@ -294,6 +306,18 @@ class OrderCreate extends Component
                 }
             }
         }
+
+        // Create payment record
+        Payment::create([
+            'payment_date'      => Carbon::now()->toDateString(),
+            'customer_id'       => $customer->id,
+            'customer_name'     => $customer->name,
+            'order_id'          => $order->id,
+            'received_amount'   => 0,
+            'payment_type'      => $this->payment_type,
+            'financial_year_id' => getFinancialYearId(),
+            'created_by'        => null,
+        ]);
 
         // Send SMS confirmation
         sendOrderCreateSMS($order->id, $customer->id);
