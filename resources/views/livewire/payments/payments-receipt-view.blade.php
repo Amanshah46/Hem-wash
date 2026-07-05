@@ -19,7 +19,7 @@
                       <th scope="col" class=""> {{ $lang->data['customer'] ?? 'Customer' }}</th>
                       <th scope="col" class="">{{ $lang->data['amount'] ?? 'Amount' }}</th>
                       <th scope="col" class=""> {{ $lang->data['payment_type'] ?? 'Payment Type' }}</th>
-                      <th scope="col" class=""> {{ $lang->data['note'] ?? 'Note' }}</th>  
+                      <th scope="col" class=""> {{ $lang->data['note'] ?? 'Note' }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -88,7 +88,7 @@
                 </div>
                 @endif
             </div>
-            
+
         </div>
     </div>
 
@@ -101,7 +101,7 @@
                 </div>
                 <div class="modal-body p-24">
                     <form action="#">
-                        <div class="row">   
+                        <div class="row">
                             <div class="col-6 mb-20">
                                 <label for="name" class="form-label fw-semibold text-primary-light text-sm mb-8">{{ $lang->data['customer_name'] ?? 'Customer Name' }} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control radius-8" placeholder="{{ $lang->data['enter_customer_name'] ?? 'Enter Customer Name' }}" wire:model="name" >
@@ -129,10 +129,10 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-start justify-content-end gap-3 mt-24">
-                                <button type="reset" class="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8"> 
+                                <button type="reset" class="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8">
                                 {{ $lang->data['cancel'] ?? 'Cancel' }}
                                 </button>
-                                <button type="submit" class="btn btn-primary border border-primary-600 text-md px-24 py-12 radius-8"> 
+                                <button type="submit" class="btn btn-primary border border-primary-600 text-md px-24 py-12 radius-8">
                                 {{ $lang->data['save'] ?? 'Save' }}
                                 </button>
                             </div>

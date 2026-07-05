@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Store;
 use App\Livewire\Auth\Login;
 use App\Livewire\HomePage;
+use App\Livewire\LandingPage;
 use App\Livewire\Orders\OrderStatusScreen;
 use App\Livewire\Orders\PosScreen;
 use App\Livewire\Orders\OrdersList;
@@ -52,7 +53,8 @@ use App\Livewire\Auth\ForgotPassword;
 Route::get('/reset-password/{token}', ForgotPassword::class);
 
 
-Route::get('/', Login::class)->name('login');
+Route::get('/', LandingPage::class)->name('home');
+Route::get('/login', Login::class)->name('login');
 Route::group(['prefix' => 'admin', 'middleware' => [Store::class]], function () {
     Route::get('/dashboard', HomePage::class)->name('admin.dashboard');
     Route::get('/pos', PosScreen::class)->name('orders.pos');

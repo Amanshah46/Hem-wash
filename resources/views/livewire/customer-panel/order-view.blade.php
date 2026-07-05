@@ -28,10 +28,10 @@
                 </div>
             @else
                 <!-- Timeline progress bar -->
-                <div class="tw-flex tw-flex-col md:tw-flex-row tw-justify-between tw-items-center tw-relative tw-w-full tw-gap-8 md:tw-gap-0">
+                <div class="tw-flex tw-flex-row md:tw-flex-row tw-justify-between tw-items-center tw-relative tw-w-full tw-gap-8 md:tw-gap-0">
                     <!-- Progress Line background -->
                     <div class="tw-absolute tw-left-1/2 md:tw-left-0 tw-top-0 md:tw-top-1/2 tw-h-full md:tw-h-[4px] tw-w-[4px] md:tw-w-full tw-bg-gray-200 -tw-translate-x-1/2 md:-tw-translate-y-1/2 tw-z-0"></div>
-                    
+
                     <!-- Active Progress Line overlay -->
                     @php
                         $progressWidth = '0%';
@@ -168,7 +168,7 @@
                             <span class="text-secondary-light text-xs">Order Notes</span>
                             <p class="text-gray-600 mt-1 mb-0">{{ $order->note ? $order->note : 'No custom instructions provided.' }}</p>
                         </div>
-                        
+
                         <!-- Cost Summary -->
                         <div class="tw-w-[18rem] tw-shrink-0">
                             <div class="d-flex justify-content-between text-secondary mb-2">
@@ -257,7 +257,7 @@
                                     <div>
                                         <span class="d-block fw-bold text-gray-800">{{ getFormattedCurrency($pay->received_amount) }}</span>
                                         <span class="text-secondary-light">
-                                            {{ \Carbon\Carbon::parse($pay->payment_date)->format('d M, Y') }} 
+                                            {{ \Carbon\Carbon::parse($pay->payment_date)->format('d M, Y') }}
                                             [{{ getpaymentMode($pay->payment_type) }}]
                                         </span>
                                     </div>

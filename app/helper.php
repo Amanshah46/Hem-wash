@@ -6,93 +6,101 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Twilio\Rest\Client;
 
-function getExpenseCategoryType($type)
-{
-    if (session()->has('selected_language')) {
-        $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
-    } else {
-        $lang = \App\Models\Translation::where('default', 1)->first();
-    }
-    if ($lang) {
+if (!function_exists('getExpenseCategoryType')) {
+    function getExpenseCategoryType($type)
+    {
+        if (session()->has('selected_language')) {
+            $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
+        } else {
+            $lang = \App\Models\Translation::where('default', 1)->first();
+        }
+        if ($lang) {
+            switch ($type) {
+                case 1:
+                    return $lang->data['asset'] ?? 'Asset';
+                case 2:
+                    return  $lang->data['liability'] ?? 'Liability';
+                default:
+                    return '';
+            }
+        }
         switch ($type) {
             case 1:
-                return $lang->data['asset'] ?? 'Asset';
+                return 'Asset';
             case 2:
-                return  $lang->data['liability'] ?? 'Liability';
+                return 'Liability';
             default:
                 return '';
         }
-    }
-    switch ($type) {
-        case 1:
-            return 'Asset';
-        case 2:
-            return 'Liability';
-        default:
-            return '';
     }
 }
 /* get payment mode */
-function getpaymentMode($type)
-{
-    if (session()->has('selected_language')) {
-        $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
-    } else {
-        $lang = \App\Models\Translation::where('default', 1)->first();
-    }
-    if ($lang) {
-        switch ($type) {
-            case 1:
-                return $lang->data['cash'] ?? 'CASH';
-            case 2:
-                return $lang->data['upi'] ?? 'UPI';
-            case 3:
-                return $lang->data['card'] ?? 'CARD';
-            case 4:
-                return $lang->data['cheque'] ?? 'CHEQUE';
-            case 5:
-                return $lang->data['bank_transfer'] ?? 'BANK TRANSFER / QR';
-            default:
-                return '';
+if (!function_exists('getpaymentMode')) {
+    function getpaymentMode($type)
+    {
+        if (session()->has('selected_language')) {
+            $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
+        } else {
+            $lang = \App\Models\Translation::where('default', 1)->first();
         }
-    } else {
-    switch ($type) {
-        case 1:
-            return 'CASH';
-        case 2:
-            return 'UPI';
-        case 3:
-            return 'CARD';
-        case 4:
-            return 'CHEQUE';
-        case 5:
-            return 'BANK TRANSFER / QR';
-        default:
-            return '';
+        if ($lang) {
+            switch ($type) {
+                case 1:
+                    return $lang->data['cash'] ?? 'CASH';
+                case 2:
+                    return $lang->data['upi'] ?? 'UPI';
+                case 3:
+                    return $lang->data['card'] ?? 'CARD';
+                case 4:
+                    return $lang->data['cheque'] ?? 'CHEQUE';
+                case 5:
+                    return $lang->data['bank_transfer'] ?? 'BANK TRANSFER / QR';
+                default:
+                    return '';
+            }
+        } else {
+            switch ($type) {
+                case 1:
+                    return 'CASH';
+                case 2:
+                    return 'UPI';
+                case 3:
+                    return 'CARD';
+                case 4:
+                    return 'CHEQUE';
+                case 5:
+                    return 'BANK TRANSFER / QR';
+                default:
+                    return '';
+            }
+        }
     }
-}
 }
 /* get financial year */
-function getFinancialYearId()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_financial_year'])) {
-        $year_id = (($site['default_financial_year']) && ($site['default_financial_year'] != "")) ? $site['default_financial_year'] : '';
-        return $year_id;
+if (!function_exists('getFinancialYearId')) {
+    function getFinancialYearId()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_financial_year'])) {
+            $year_id = (($site['default_financial_year']) && ($site['default_financial_year'] != "")) ? $site['default_financial_year'] : '';
+            return $year_id;
+        }
+        return null;
     }
-    return null;
 }
 /* get Currency */
-function getCurrency()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_currency'])) {
-        $currency = (($site['default_currency']) && ($site['default_currency'] != "")) ? $site['default_currency'] : '$';
-        return $currency;
+if (!function_exists('getCurrency')) {
+    function getCurrency()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_currency'])) {
+            $currency = (($site['default_currency']) && ($site['default_currency'] != "")) ? $site['default_currency'] : '$';
+            return $currency;
+        }
+        return '$';
     }
-    return '$';
 }
 /* get Tax percentage */
 if(!function_exists('getTaxPercentage'))
@@ -113,6 +121,7 @@ if(!function_exists('getTaxPercentage'))
 
 
 /* get order status */
+if (!function_exists('getOrderStatus')) {
 function getOrderStatus($status, $preventlang = null)
 {
     if (session()->has('selected_language')) {
@@ -152,7 +161,9 @@ function getOrderStatus($status, $preventlang = null)
         }
     }
 }
+}
 /* get order status wit color */
+if (!function_exists('getOrderStatusWithColor')) {
 function getOrderStatusWithColor($status)
 {
     switch ($status) {
@@ -168,7 +179,9 @@ function getOrderStatusWithColor($status)
             return 'today-task-returned';
     }
 }
+}
 /* get order status with color for change status screen */
+if (!function_exists('getOrderStatusWithColorKan')) {
 function getOrderStatusWithColorKan($status)
 {
     switch ($status) {
@@ -180,266 +193,293 @@ function getOrderStatusWithColorKan($status)
             return 'scrum-task-ready';
     }
 }
+}
 /* get priner type */
-function getPrinterType()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_printer'])) {
-        $printerType = (($site['default_printer']) && ($site['default_printer'] != "")) ? $site['default_printer'] : 1;
-        return $printerType;
+if (!function_exists('getPrinterType')) {
+    function getPrinterType()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_printer'])) {
+            $printerType = (($site['default_printer']) && ($site['default_printer'] != "")) ? $site['default_printer'] : 1;
+            return $printerType;
+        }
+        return 1;
     }
-    return 1;
 }
 
 /* get favicon */
-function getFavIcon()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_favicon']) && file_exists(public_path($site['default_favicon']))) {
-        $favicon = (($site['default_favicon']) && ($site['default_favicon'] != "")) ? $site['default_favicon'] : 'assets/img/favicon.png';
-        return $favicon;
+if (!function_exists('getFavIcon')) {
+    function getFavIcon()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_favicon']) && file_exists(public_path($site['default_favicon']))) {
+            $favicon = (($site['default_favicon']) && ($site['default_favicon'] != "")) ? $site['default_favicon'] : 'assets/img/favicon.png';
+            return $favicon;
+        }
+        return asset('assets/img/logo-ct.png');
     }
-    return asset('assets/img/logo-ct.png');
 }
 
 
 /* get getAppliation Name */
-function getApplicationName()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_application_name'])) {
-        $favicon = (($site['default_application_name']) && ($site['default_application_name'] != "")) ? $site['default_application_name'] : 'Laundry Box';
-        return $favicon;
+if (!function_exists('getApplicationName')) {
+    function getApplicationName()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_application_name'])) {
+            $favicon = (($site['default_application_name']) && ($site['default_application_name'] != "")) ? $site['default_application_name'] : 'Laundry Box';
+            return $favicon;
+        }
+        return 'Laundry Box';
     }
-    return 'Laundry Box';
 }
 
 
 /* get site logo */
-function getSiteLogo()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['default_logo']) && file_exists(public_path($site['default_logo']))) {
-        $favicon = (($site['default_logo']) && ($site['default_logo'] != "")) ? $site['default_logo'] : 'assets/img/logo-ct.png';
-        return $favicon;
+if (!function_exists('getSiteLogo')) {
+    function getSiteLogo()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['default_logo']) && file_exists(public_path($site['default_logo']))) {
+            $favicon = (($site['default_logo']) && ($site['default_logo'] != "")) ? $site['default_logo'] : 'assets/img/logo-ct.png';
+            return $favicon;
+        }
+        return asset('assets/img/logo-ct.png');
     }
-    return asset('assets/img/logo-ct.png');
 }
 
 //Checks if Selected language is RTL
-function isRTL()
-{
-    if (session()->has('selected_language')) {
-        $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
-        if ($lang) {
-            if ($lang->is_rtl) {
-                return true;
+if (!function_exists('isRTL')) {
+    function isRTL()
+    {
+        if (session()->has('selected_language')) {
+            $lang = \App\Models\Translation::where('id', session()->get('selected_language'))->first();
+            if ($lang) {
+                if ($lang->is_rtl) {
+                    return true;
+                }
             }
         }
+        return false;
     }
-    return false;
 }
 
-function getCountryCode()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['country_code']) && $site['country_code'] != '') {
-        return '+'.$site['country_code'];
-    }
-    return '+91';
-}
-
-function smsOrderDeliveredOnly()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['sms_delivered_only']) && $site['sms_delivered_only'] == 1) {
-        return true;
-    }
-    return false;
-}
-
-function smsOrderReadyToDeliverOnly()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['sms_ready_to_deliver_only']) && $site['sms_ready_to_deliver_only'] == 1) {
-        return true;
-    }
-    return false;
-}
-
-
-function isSMSEnabled()
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    if (isset($site['sms_enabled']) && ($site['sms_enabled'] == 1)) {
-        return true;
-    }
-    return false;
-}
-
-function sendOrderCreateSMS($order, $to)
-{
-
-    if (isSMSEnabled() == true) {
+if (!function_exists('getCountryCode')) {
+    function getCountryCode()
+    {
         $settings = new App\Models\MasterSettings();
         $site = $settings->siteData();
-        $messageerror = null;
-        try {
-            $myorder = Order::find($order);
-            if (smsOrderDeliveredOnly() && smsOrderReadyToDeliverOnly()) {
-                return;
-            }
-            if (smsOrderDeliveredOnly()) {
-                return;
-            }
-            if (smsOrderReadyToDeliverOnly()) {
-                return;
-            }
-
-            $account_sid = (($site['sms_account_sid']) && ($site['sms_account_sid'] != "")) ? $site['sms_account_sid'] : '';
-            $auth_token = (($site['sms_auth_token']) && ($site['sms_auth_token'] != "")) ? $site['sms_auth_token'] : '';
-            $twilio_number = (($site['sms_twilio_number']) && ($site['sms_twilio_number'] != "")) ? $site['sms_twilio_number'] : '';
-
-            $client = new Client($account_sid, $auth_token);
-            $customer = Customer::find($to);
-            if ($customer) {
-                $phoneInt = (int)$customer->phone;
-                $message = getFormatedTextSMS($order, 1);
-                $client->messages->create(
-                    getCountryCode() . $phoneInt,
-                    ['from' => $twilio_number, 'body' => $message]
-                );
-            }
-        } catch (\Exception $e) {
-            $messageerror = $e->getMessage();
-            if ($e->getCode() == 21211) {
-                $messageerror = 'Could not send SMS,Because the phone number is invalid';
-            }
+        if (isset($site['country_code']) && $site['country_code'] != '') {
+            return '+'.$site['country_code'];
         }
-        return $messageerror;
+        return '+91';
     }
 }
 
-function sendOrderStatusChangeSMS($order, $to_status)
-{
-    if (isSMSEnabled() == true) {
+if (!function_exists('smsOrderDeliveredOnly')) {
+    function smsOrderDeliveredOnly()
+    {
         $settings = new App\Models\MasterSettings();
         $site = $settings->siteData();
-        $messageerror = null;
-        try {
-            $myorder = Order::find($order);
-            if (smsOrderDeliveredOnly() && smsOrderReadyToDeliverOnly()) {
-                if ($myorder->status != 3 && $myorder->status != 2) {
-                    return;
-                }
-            }
-            if (smsOrderDeliveredOnly() && (!smsOrderReadyToDeliverOnly())) {
-                if (smsOrderDeliveredOnly() && $myorder->status != 3) {
-                    return;
-                }
-            }
-            if ((!smsOrderDeliveredOnly()) && (smsOrderReadyToDeliverOnly())) {
-                if (smsOrderReadyToDeliverOnly() && $myorder->status != 2) {
-                    return;
-                }
-            }
-            $account_sid = (($site['sms_account_sid']) && ($site['sms_account_sid'] != "")) ? $site['sms_account_sid'] : '';
-            $auth_token = (($site['sms_auth_token']) && ($site['sms_auth_token'] != "")) ? $site['sms_auth_token'] : '';
-            $twilio_number = (($site['sms_twilio_number']) && ($site['sms_twilio_number'] != "")) ? $site['sms_twilio_number'] : '';
-            $client = new Client($account_sid, $auth_token);
-            $customer = Customer::find($myorder->customer_id);
-            if ($customer) {
-                if ($to_status == 2) {
-                    $message = getFormatedTextSMS($order, 3);
-                } else {
-                    $message = getFormatedTextSMS($order, 2);
-                }
-                $phoneInt = (int)$customer->phone;
-                $client->messages->create(
-                    getCountryCode() . $phoneInt,
-                    ['from' => $twilio_number, 'body' => $message]
-                );
-            }
-        } catch (\Exception $e) {
-            $messageerror = $e->getMessage();
-            if ($e->getCode() == 21211) {
-                $messageerror = 'Could not send SMS,Because the phone number is invalid';
-            }
+        if (isset($site['sms_delivered_only']) && $site['sms_delivered_only'] == 1) {
+            return true;
         }
-        return $messageerror;
+        return false;
+    }
+}
+
+if (!function_exists('smsOrderReadyToDeliverOnly')) {
+    function smsOrderReadyToDeliverOnly()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['sms_ready_to_deliver_only']) && $site['sms_ready_to_deliver_only'] == 1) {
+            return true;
+        }
+        return false;
+    }
+}
+
+
+if (!function_exists('isSMSEnabled')) {
+    function isSMSEnabled()
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        if (isset($site['sms_enabled']) && ($site['sms_enabled'] == 1)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+if (!function_exists('sendOrderCreateSMS')) {
+    function sendOrderCreateSMS($order, $to)
+    {
+
+        if (isSMSEnabled() == true) {
+            $settings = new App\Models\MasterSettings();
+            $site = $settings->siteData();
+            $messageerror = null;
+            try {
+                $myorder = Order::find($order);
+                if (smsOrderDeliveredOnly() && smsOrderReadyToDeliverOnly()) {
+                    return;
+                }
+                if (smsOrderDeliveredOnly()) {
+                    return;
+                }
+                if (smsOrderReadyToDeliverOnly()) {
+                    return;
+                }
+
+                $account_sid = (($site['sms_account_sid']) && ($site['sms_account_sid'] != "")) ? $site['sms_account_sid'] : '';
+                $auth_token = (($site['sms_auth_token']) && ($site['sms_auth_token'] != "")) ? $site['sms_auth_token'] : '';
+                $twilio_number = (($site['sms_twilio_number']) && ($site['sms_twilio_number'] != "")) ? $site['sms_twilio_number'] : '';
+
+                $client = new Client($account_sid, $auth_token);
+                $customer = Customer::find($to);
+                if ($customer) {
+                    $phoneInt = (int)$customer->phone;
+                    $message = getFormatedTextSMS($order, 1);
+                    $client->messages->create(
+                        getCountryCode() . $phoneInt,
+                        ['from' => $twilio_number, 'body' => $message]
+                    );
+                }
+            } catch (\Exception $e) {
+                $messageerror = $e->getMessage();
+                if ($e->getCode() == 21211) {
+                    $messageerror = 'Could not send SMS,Because the phone number is invalid';
+                }
+            }
+            return $messageerror;
+        }
+    }
+}
+
+if (!function_exists('sendOrderStatusChangeSMS')) {
+    function sendOrderStatusChangeSMS($order, $to_status)
+    {
+        if (isSMSEnabled() == true) {
+            $settings = new App\Models\MasterSettings();
+            $site = $settings->siteData();
+            $messageerror = null;
+            try {
+                $myorder = Order::find($order);
+                if (smsOrderDeliveredOnly() && smsOrderReadyToDeliverOnly()) {
+                    if ($myorder->status != 3 && $myorder->status != 2) {
+                        return;
+                    }
+                }
+                if (smsOrderDeliveredOnly() && (!smsOrderReadyToDeliverOnly())) {
+                    if (smsOrderDeliveredOnly() && $myorder->status != 3) {
+                        return;
+                    }
+                }
+                if ((!smsOrderDeliveredOnly()) && (smsOrderReadyToDeliverOnly())) {
+                    if (smsOrderReadyToDeliverOnly() && $myorder->status != 2) {
+                        return;
+                    }
+                }
+                $account_sid = (($site['sms_account_sid']) && ($site['sms_account_sid'] != "")) ? $site['sms_account_sid'] : '';
+                $auth_token = (($site['sms_auth_token']) && ($site['sms_auth_token'] != "")) ? $site['sms_auth_token'] : '';
+                $twilio_number = (($site['sms_twilio_number']) && ($site['sms_twilio_number'] != "")) ? $site['sms_twilio_number'] : '';
+                $client = new Client($account_sid, $auth_token);
+                $customer = Customer::find($myorder->customer_id);
+                if ($customer) {
+                    if ($to_status == 2) {
+                        $message = getFormatedTextSMS($order, 3);
+                    } else {
+                        $message = getFormatedTextSMS($order, 2);
+                    }
+                    $phoneInt = (int)$customer->phone;
+                    $client->messages->create(
+                        getCountryCode() . $phoneInt,
+                        ['from' => $twilio_number, 'body' => $message]
+                    );
+                }
+            } catch (\Exception $e) {
+                $messageerror = $e->getMessage();
+                if ($e->getCode() == 21211) {
+                    $messageerror = 'Could not send SMS,Because the phone number is invalid';
+                }
+            }
+            return $messageerror;
+        }
     }
 }
 
 //get formatted currency
-function getFormattedCurrency($value)
-{
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    $symbol = $site['default_currency'] ?? '$';
-    $alignment = $site['default_currency_alignment'] ?? 1;
-    $value = number_format($value, 2);
-    if ($alignment == 1) {
-        return $symbol . ' ' . $value;
+if (!function_exists('getFormattedCurrency')) {
+    function getFormattedCurrency($value)
+    {
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        $symbol = $site['default_currency'] ?? '$';
+        $alignment = $site['default_currency_alignment'] ?? 1;
+        $value = number_format($value, 2);
+        if ($alignment == 1) {
+            return $symbol . ' ' . $value;
+        }
+        return $value . ' ' . $symbol;
     }
-    return $value . ' ' . $symbol;
 }
 
 
-function getFormatedTextSMS($order, $type)
-{
-    $myorder = Order::find($order);
-    $settings = new App\Models\MasterSettings();
-    $site = $settings->siteData();
-    $string = null;
-    if ($type == 1) {
-        if (isset($site['sms_createorder']) && $site['sms_createorder'] != '') {
-            $string = $site['sms_createorder'] ?? 'Hi <name> An Order #<order_number> was created and will be delivered on <delivery_date> Your Order Total is <total>.';
+if (!function_exists('getFormatedTextSMS')) {
+    function getFormatedTextSMS($order, $type)
+    {
+        $myorder = Order::find($order);
+        $settings = new App\Models\MasterSettings();
+        $site = $settings->siteData();
+        $string = null;
+        if ($type == 1) {
+            if (isset($site['sms_createorder']) && $site['sms_createorder'] != '') {
+                $string = $site['sms_createorder'] ?? 'Hi <name> An Order #<order_number> was created and will be delivered on <delivery_date> Your Order Total is <total>.';
+            } else {
+                $string = 'Hi <name> An Order #<order_number> was created and will be delivered on <delivery_date> Your Order Total is <total>.';
+            }
         } else {
-            $string = 'Hi <name> An Order #<order_number> was created and will be delivered on <delivery_date> Your Order Total is <total>.';
+            if (isset($site['sms_statuschange']) && $site['sms_statuschange'] != '') {
+                $string = $site['sms_statuschange'] ?? 'Hi <name> Your Order #<order_number> status has been changed to <status> on <current_time>';
+            } else {
+                $string =  'Hi <name> Your Order #<order_number> status has been changed to <status> on <current_time>';
+            }
         }
-    } else {
-        if (isset($site['sms_statuschange']) && $site['sms_statuschange'] != '') {
-            $string = $site['sms_statuschange'] ?? 'Hi <name> Your Order #<order_number> status has been changed to <status> on <current_time>';
-        } else {
-            $string =  'Hi <name> Your Order #<order_number> status has been changed to <status> on <current_time>';
-        }
-    }
 
-    $replacer = [
-        '<name>' => 'Customer Name',
-        '<order_date>' => 'Order Date',
-        '<delivery_date>' => 'Delivery Date',
-        '<no_of_products>' => 'No Of Products',
-        '<total>' => 'Total',
-        '<discount>' => 'Discount',
-        '<paid>' => 'Paid Amount',
-        '<status>'  => 'Status',
-        '<order_number>'    => 'Order Number',
-        '<current_time>'    => 'Current Time'
-    ];
-    $count = \App\Models\OrderDetail::where('order_id', $order)->count();
-    $paid = \App\Models\Payment::where('order_id', $order)->sum('received_amount');
-    $replacement = [
-        $myorder->customer_name,
-        \Carbon\Carbon::parse($myorder->order_date)->format('d/m/Y'),
-        \Carbon\Carbon::parse($myorder->delivery_date)->format('d/m/Y'),
-        $count,
-        getCurrency() . number_format($myorder->total, 2),
-        getCurrency() . number_format($myorder->discount, 2),
-        getCurrency() . number_format($paid, 2),
-        getOrderStatus($myorder->status),
-        $myorder->order_number,
-        \Carbon\Carbon::now()->format('d/m/Y h:i A')
-    ];
-    return str_replace(array_keys($replacer), array_values($replacement), $string);
+        $replacer = [
+            '<name>' => 'Customer Name',
+            '<order_date>' => 'Order Date',
+            '<delivery_date>' => 'Delivery Date',
+            '<no_of_products>' => 'No Of Products',
+            '<total>' => 'Total',
+            '<discount>' => 'Discount',
+            '<paid>' => 'Paid Amount',
+            '<status>'  => 'Status',
+            '<order_number>'    => 'Order Number',
+            '<current_time>'    => 'Current Time'
+        ];
+        $count = \App\Models\OrderDetail::where('order_id', $order)->count();
+        $paid = \App\Models\Payment::where('order_id', $order)->sum('received_amount');
+        $replacement = [
+            $myorder->customer_name,
+            \Carbon\Carbon::parse($myorder->order_date)->format('d/m/Y'),
+            \Carbon\Carbon::parse($myorder->delivery_date)->format('d/m/Y'),
+            $count,
+            getCurrency() . number_format($myorder->total, 2),
+            getCurrency() . number_format($myorder->discount, 2),
+            getCurrency() . number_format($paid, 2),
+            getOrderStatus($myorder->status),
+            $myorder->order_number,
+            \Carbon\Carbon::now()->format('d/m/Y h:i A')
+        ];
+        return str_replace(array_keys($replacer), array_values($replacement), $string);
+    }
 }
 
 if(!function_exists('getTaxType'))

@@ -18,7 +18,7 @@ class OrderView extends Component
     public $orderdetails = [];
     public $orderaddons = [];
     public $payments = [];
-    
+
     public $sitename;
     public $address;
     public $phone;
@@ -43,7 +43,7 @@ class OrderView extends Component
         }
 
         $this->order = Order::where('customer_id', $customerId)->where('id', $id)->firstOrFail();
-        
+
         $this->orderdetails = OrderDetail::where('order_id', $this->order->id)->get();
         $this->orderaddons = OrderAddonDetail::where('order_id', $this->order->id)->get();
         $this->payments = Payment::where('order_id', $this->order->id)->get();
@@ -51,7 +51,7 @@ class OrderView extends Component
         $settings = new MasterSettings();
         $site = $settings->siteData();
 
-        $this->sitename = $site['default_application_name'] ?? 'Laundry Box';
+        $this->sitename = $site['default_application_name'] ?? 'Laundry ';
         $this->phone = $site['default_phone_number'] ?? '123456789';
         $this->address = $site['default_address'] ?? 'Address';
         $this->zipcode = $site['default_zip_code'] ?? 'ZipCode';

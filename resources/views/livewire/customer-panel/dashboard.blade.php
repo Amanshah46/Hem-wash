@@ -1,66 +1,85 @@
 <div>
     <!-- Stats Cards Row -->
-    <div class="row gy-4">
-        <!-- Card: Active Orders -->
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card p-3 radius-12 customer-card-glass" style="border-left: 4px solid var(--laundry-primary) !important;">
+  <div class="container-fluid">
+    <div class="row g-4">
+
+        <!-- Active Orders -->
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card p-3 radius-12 customer-card-glass"
+                 style="border-left:4px solid var(--laundry-primary) !important;">
                 <div class="card-body p-0 d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-secondary-light fw-medium text-sm">Active Orders</span>
-                        <h4 class="mb-0 mt-1 tw-font-bold text-gray-800">{{ $active_orders }}</h4>
+                        <span class="text-secondary-light fw-medium text-sm">
+                            Active Orders
+                        </span>
+                        <h4 class="mb-0 mt-1 fw-bold text-dark">
+                            {{ $active_orders }}
+                        </h4>
                     </div>
-                    <div class="w-50-px h-50-px radius-8 d-flex justify-content-center align-items-center" style="background-color: var(--primary-50); color: var(--laundry-primary);">
-                        <iconify-icon icon="solar:washing-machine-outline" class="tw-text-2xl"></iconify-icon>
+
+                    <div class="w-50-px h-50-px radius-8 d-flex justify-content-center align-items-center"
+                         style="background-color: var(--primary-50); color: var(--laundry-primary);">
+                        <iconify-icon
+                            icon="solar:washing-machine-outline"
+                            class="fs-3">
+                        </iconify-icon>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card: Completed Orders -->
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card p-3 radius-12 customer-card-glass tw-border-l-4 tw-border-success-500">
+        <!-- Completed Orders -->
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card p-3 radius-12 customer-card-glass"
+                 style="border-left:4px solid #22c55e !important;">
                 <div class="card-body p-0 d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-secondary-light fw-medium text-sm">Completed Orders</span>
-                        <h4 class="mb-0 mt-1 tw-font-bold text-gray-800">{{ $completed_orders }}</h4>
+                        <span class="text-secondary-light fw-medium text-sm">
+                            Completed Orders
+                        </span>
+                        <h4 class="mb-0 mt-1 fw-bold text-dark">
+                            {{ $completed_orders }}
+                        </h4>
                     </div>
-                    <div class="w-50-px h-50-px radius-8 bg-success-50 d-flex justify-content-center align-items-center text-success-600">
-                        <iconify-icon icon="solar:bill-check-outline" class="tw-text-2xl"></iconify-icon>
+
+                    <div class="w-50-px h-50-px radius-8 d-flex justify-content-center align-items-center"
+                         style="background:#ecfdf5;color:#16a34a;">
+                        <iconify-icon
+                            icon="solar:bill-check-outline"
+                            class="fs-3">
+                        </iconify-icon>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card: Total Invoiced -->
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card p-3 radius-12 customer-card-glass tw-border-l-4 tw-border-warning-500">
+        <!-- Total Spend -->
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card p-3 radius-12 customer-card-glass"
+                 style="border-left:4px solid #f59e0b !important;">
                 <div class="card-body p-0 d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-secondary-light fw-medium text-sm">Total Spend</span>
-                        <h4 class="mb-0 mt-1 tw-font-bold text-gray-800">{{ getFormattedCurrency($invoice_amount) }}</h4>
+                        <span class="text-secondary-light fw-medium text-sm">
+                            Total Spend
+                        </span>
+                        <h4 class="mb-0 mt-1 fw-bold text-dark">
+                            {{ getFormattedCurrency($invoice_amount) }}
+                        </h4>
                     </div>
-                    <div class="w-50-px h-50-px radius-8 bg-warning-50 d-flex justify-content-center align-items-center text-warning-600">
-                        <iconify-icon icon="solar:wallet-money-outline" class="tw-text-2xl"></iconify-icon>
+
+                    <div class="w-50-px h-50-px radius-8 d-flex justify-content-center align-items-center"
+                         style="background:#fffbeb;color:#d97706;">
+                        <iconify-icon
+                            icon="solar:wallet-money-outline"
+                            class="fs-3">
+                        </iconify-icon>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card: Ledger Balance -->
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card p-3 radius-12 customer-card-glass tw-border-l-4 tw-border-danger-500">
-                <div class="card-body p-0 d-flex justify-content-between align-items-center">
-                    <div>
-                        <span class="text-secondary-light fw-medium text-sm">Outstanding Balance</span>
-                        <h4 class="mb-0 mt-1 tw-font-bold text-gray-800">{{ getFormattedCurrency($balance) }}</h4>
-                    </div>
-                    <div class="w-50-px h-50-px radius-8 bg-danger-50 d-flex justify-content-center align-items-center text-danger-600">
-                        <iconify-icon icon="solar:card-recive-outline" class="tw-text-2xl"></iconify-icon>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 
     <!-- Quick Action / Welcome Banner -->
     <div class="card radius-16 tw-overflow-hidden tw-mt-6 text-white" style="background: var(--customer-sidebar-gradient, linear-gradient(135deg, #1e3c72 0%, #2a5298 100%));">

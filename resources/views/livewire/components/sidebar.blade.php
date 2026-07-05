@@ -120,41 +120,41 @@
                         </li>
                     @endcan
                     @can('translation_list')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.translations') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['translations'] ?? 'Translations'}}</a>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('setting_mail')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.mail-settings') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> {{$lang->data['mail_settings'] ?? 'Mail Settings'}}</a>
-                    </li>
+                    </li> --}}
                     @endcan
 
                     @can('setting_mail')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.file') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['file_tools'] ?? 'File Tools'}} </a>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('setting_sms')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.sms') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>{{$lang->data['sms_settings'] ?? 'SMS Settings'}} </a>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('role_list')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.roles') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> {{$lang->data['roles'] ?? 'Roles'}} </a>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('user_list')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.staff') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> {{$lang->data['staff'] ?? 'Staff'}} </a>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('setting_master')
                     <li>
@@ -163,10 +163,10 @@
                     </li>
                     @endcan
                     @can('setting_theme')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('settings.theme') }}"><i
                                 class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> {{$lang->data['theme'] ?? 'Theme'}}</a>
-                    </li>
+                    </li> --}}
                     @endcan
                 </ul>
             </li>

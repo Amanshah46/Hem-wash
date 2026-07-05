@@ -158,7 +158,7 @@
                     <div class="mb-20">
                         <label for="country" class="form-label fw-semibold text-primary-light text-sm mb-8">
                             {{ $lang->data['country'] ?? 'Country' }} <span class="text-danger">*</span>
-                        </label> 
+                        </label>
                         @php
                         $inline_countries = App\Models\Country::latest()->get();
                         @endphp
@@ -205,7 +205,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-sm-4">
+                {{-- <div class="col-sm-4">
                     <div class="mb-20">
                         <label for="zip_code" class="form-label fw-semibold text-primary-light text-sm mb-8">
                             {{ $lang->data['zip_code'] ?? 'Zip Code' }} <span class="text-danger">*</span>
@@ -226,8 +226,8 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
-                <div class="col-sm-4">
+                </div> --}}
+                {{-- <div class="col-sm-4">
                     <div class="mb-20">
                         <label for="store_tax" class="form-label fw-semibold text-primary-light text-sm mb-8">
                             {{ $lang->data['store_tax_number'] ?? 'Store Tax Number' }} <span class="text-danger">*</span>
@@ -237,8 +237,8 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
-                <div class="col-sm-4">
+                </div> --}}
+                {{-- <div class="col-sm-4">
                     <div class="mb-20">
                         <label for="country_code" class="form-label fw-semibold text-primary-light text-sm mb-8">
                             {{ $lang->data['country_code'] ?? 'Country Code' }} <span class="text-danger">*</span>
@@ -248,7 +248,7 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12 mb-3">
                     <div class="mb-20">
                         <label for="default_address" class="form-label fw-semibold text-primary-light text-sm mb-8">

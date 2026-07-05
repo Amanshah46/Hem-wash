@@ -9,9 +9,9 @@
                     <div class="tw-flex tw-flex-col tw-mt-2">
                         <div class="">{{$phone ? getCountryCode() : ''}}{{ (int)$phone }}</div>
                         <div class="">{{ $store_email }}</div>
-                        <div class="">{{ $address }} - {{ $zipcode }}</div>
-    
-                        <div class="tw-mt-2">{{ $lang->data['tax'] ?? 'TAX' }}: {{ $tax_number }}</div>
+                        {{-- <div class="">{{ $address }} - {{ $zipcode }}</div> --}}
+
+                        {{-- <div class="tw-mt-2">{{ $lang->data['tax'] ?? 'TAX' }}: {{ $tax_number }}</div> --}}
                     </div>
                 </div>
                 <div class="tw-flex tw-flex-col  tw-text-sm tw-items-end">
@@ -19,25 +19,25 @@
                     </div>
                     <div class="tw-flex tw-flex-col tw-mt-2 tw-items-end">
                         <div class="text-neutral-600">
-                            {{ $lang->data['order_id'] ?? 'Order ID' }} : <span class="tw-font-medium text-primary-light">#{{ $order->order_number }}</span> 
+                            {{ $lang->data['order_id'] ?? 'Order ID' }} : <span class="tw-font-medium text-primary-light">#{{ $order->order_number }}</span>
                         </div>
                         <div class="text-neutral-600">
-                            {{ $lang->data['order_date'] ?? 'Order Date' }} : <span class="tw-font-medium text-primary-light">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</span> 
+                            {{ $lang->data['order_date'] ?? 'Order Date' }} : <span class="tw-font-medium text-primary-light">{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y') }}</span>
                         </div>
                         <div class="text-neutral-600">
-                            {{ $lang->data['delivery_date'] ?? 'Delivery Date' }} : <span class="tw-font-medium text-primary-light">{{ \Carbon\Carbon::parse($order->delivery_date)->format('d/m/Y') }}</span> 
+                            {{ $lang->data['delivery_date'] ?? 'Delivery Date' }} : <span class="tw-font-medium text-primary-light">{{ \Carbon\Carbon::parse($order->delivery_date)->format('d/m/Y') }}</span>
                         </div>
                         @php
                             $orderPayment = \App\Models\Payment::where('order_id', $order->id)->first();
                         @endphp
                         @if($orderPayment)
                         <div class="text-neutral-600">
-                            Payment Type : <span class="badge bg-primary-100 text-primary-600 px-2 py-1 tw-font-semibold" style="color: var(--laundry-primary-active, #1e3c72) !important;">{{ getpaymentMode($orderPayment->payment_type) }}</span> 
+                            Payment Type : <span class="badge bg-primary-100 text-primary-600 px-2 py-1 tw-font-semibold" style="color: var(--laundry-primary-active, #1e3c72) !important;">{{ getpaymentMode($orderPayment->payment_type) }}</span>
                         </div>
                         @endif
                         <div class="tw-mt-2 tw-flex tw-items-center tw-gap-2">
                             <div class="">
-                                {{ $lang->data['order_status'] ?? 'Order Status' }} : 
+                                {{ $lang->data['order_status'] ?? 'Order Status' }} :
                             </div>
                             <div class="dropdown">
                                 @can('order_status_change')
@@ -53,7 +53,7 @@
                                         </button>
                                         @else
                                         <button  class="dropdown-item px-16 py-8 rounded text-secondary-light bg-hover-neutral-200 text-hover-neutral-900" href="#" wire:click.prevent="changeStatus(3)">
-                                            {{ $lang->data['delivered'] ?? 'Delivered' }} 
+                                            {{ $lang->data['delivered'] ?? 'Delivered' }}
                                         </button>
                                         @endif
                                     </li>
@@ -75,8 +75,8 @@
                                 <div class="">
                                     {{ getOrderStatus($order->status) }}
                                 </div>
-                                @endcannot 
-                                
+                                @endcannot
+
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                 <td class="text-primary">
                                     {{ getFormattedCurrency($item->service_detail_total) }}
                                 </td>
-                               
+
                             </tr>
                             @endforeach
                       </tbody>
@@ -157,12 +157,12 @@
                             <div class=" tw-text-sm">
                                 {{ $customer->address ?? '' }}
                             </div>
-    
-                            <div class="tw-text-sm tw-mt-2">
+
+                            {{-- <div class="tw-text-sm tw-mt-2">
                                 {{ $lang->data['vat'] ?? 'VAT' }} : {{ $customer->tax_number ?? 'TAX' }}
-                            </div>
+                            </div> --}}
                         </div>
-    
+
                         <div class="tw-flex tw-flex-col ">
                             <div class="pb-2">{{ $lang->data['payment_details'] ?? 'Payment Details' }}</div>
                             <div class="tw-flex tw-justify-between tw-items-center tw-w-[17rem] tw-mt-2">
@@ -206,12 +206,12 @@
                                     {{ getFormattedCurrency($order->total) }}
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <hr class="tw-mt-4">
                     <div class="tw-flex tw-justify-between tw-text-sm tw-mt-4 ">
-                        <div class=""><span class="tw-font-medium">{{ $lang->data['notes'] ?? 'Notes' }} :</span> {{ $order->note }}</div>                        
+                        <div class=""><span class="tw-font-medium">{{ $lang->data['notes'] ?? 'Notes' }} :</span> {{ $order->note }}</div>
                     </div>
                     <div class="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-mt-4">
                         <div class="tw-w-full tw-h-[1px]  tw-from-transparent tw-to-neutral-300 tw-bg-gradient-to-r"></div>
@@ -271,7 +271,7 @@
             </div>
         </div>
     </div>
-  
+
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-md modal-dialog modal-dialog-centered">
@@ -283,7 +283,7 @@
                 @if ($order)
                     <div class="modal-body p-24">
                         <form action="#">
-                            <div class="row">   
+                            <div class="row">
                                 <div class="col-12">
                                     <div class="">
                                         <ul>
@@ -363,10 +363,10 @@
                                     @enderror
                                 </div>
                                 <div class="d-flex align-items-start justify-content-end gap-3 mt-24">
-                                    <button data-bs-dismiss="modal" type="button" class="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8"> 
+                                    <button data-bs-dismiss="modal" type="button" class="border border-danger-600 bg-hover-danger-200 text-danger-600 text-md px-40 py-11 radius-8">
                                     {{ $lang->data['cancel'] ?? 'Cancel' }}
                                     </button>
-                                    <button wire:click.prevent="addPayment" class="btn btn-primary border border-primary-600 text-md px-24 py-12 radius-8"> 
+                                    <button wire:click.prevent="addPayment" class="btn btn-primary border border-primary-600 text-md px-24 py-12 radius-8">
                                     {{ $lang->data['save'] ?? 'Save' }}
                                     </button>
                                 </div>
